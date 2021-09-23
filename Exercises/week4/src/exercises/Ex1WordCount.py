@@ -18,7 +18,12 @@ def word_count_program():
 # --------------- Methods -----------------
 # TODO
 def count_words(string: str):
-    return -1
+    words = 0
+    print(string.split())
+    for i in range(len(string.split())):
+        words += 1
+    return words
+
 
 
 if __name__ == "__main__":
