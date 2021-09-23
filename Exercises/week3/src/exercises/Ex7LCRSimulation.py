@@ -25,8 +25,6 @@ def lcr_program():
     print("Simulation starts")
     display_players(players)
 
-    # TODO Run the simulation
-
     while not check_win(players):
         for i in range(current.chips):
             roll(current, players)
