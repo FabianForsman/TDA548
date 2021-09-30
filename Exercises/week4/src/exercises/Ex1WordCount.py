@@ -16,7 +16,6 @@ def word_count_program():
 
 
 # --------------- Methods -----------------
-# TODO
 def count_words(string: str):
     words = 0
     for i in range(len(string.split())):
