@@ -1,6 +1,5 @@
 # package exercises
 
-
 # Use a Stack to check parentheses (balanced and correct nesting)
 # The parentheses are: (), [] and {}
 #
@@ -8,6 +7,15 @@
 # - UseAStack
 # - UseString
 # - SwitchStatement
+
+parentheses = {
+    "open": "([{",
+    "closed": ")]}",
+    0: "()",
+    1: "[]",
+    2: "{}"
+}
+
 def check_paren_program():
     # All should be true
     print(check_parentheses("()"))
@@ -23,8 +31,12 @@ def check_paren_program():
 
 # ----------- Methods -------------------------
 def check_parentheses(string):
-    # TODO
-    return False
+    list = []
+    for elem in string:
+        list.append(elem)
+    for i in list:
+        if list in parentheses["open"]:
+            pass
 
 
 def matching(string):

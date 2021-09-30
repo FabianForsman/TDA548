@@ -44,30 +44,15 @@ def read_number(string_to_parse: str, start_index: int) -> tuple:
 	numbers = "0123456789"
 	return_num = ""
 	stop_index = 0
+	num_flag = False
 	for elem in string_to_parse:
 		if elem in numbers:
 			return_num += elem
 			stop_index += 1
-	print(stop_index)
+			num_flag = True
+		if not num_flag:
+			stop_index += 1
 	return [int(return_num)], stop_index
-
-
-def read_number2(string_to_parse: str, start_index: int):
-	temp = []
-	char_found = False
-	string_to_parse = list(string_to_parse)
-	string = ""
-	for start_index in range(len(string_to_parse)):
-		try:
-			string_to_parse[start_index] = int(string_to_parse[start_index])
-		except ValueError:
-			# print("Found char!")
-			char_found = True
-		if not char_found:
-			temp.append(int(string_to_parse[start_index]))
-	for elem in temp:
-		string += str(elem)
-	return int(string), start_index + 1
 
 
 if __name__ == "__main__":
