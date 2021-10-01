@@ -51,7 +51,7 @@ def swap(permutations: list, arr: list, x: int, prev_index: int, current_index: 
 	print(current_index, prev_index, end="")
 	print(" -- ", end="")
 	print(arr[0], arr[-1])
-	if not arr[0] == x and not arr[-1] == x:
+	if not (arr[0] == x or arr[-1] == x):
 		if prev_index > current_index:
 			arr[current_index], arr[current_index-1] = arr[current_index-1], arr[current_index]
 			prev_index -= 1
