@@ -25,63 +25,114 @@ def sjt_program():
 # Steinhaus–Johnson–Trotter permutation algorithm iterative!
 # Use functional decomposition!
 # TODO
-def permutation_sjt(string) -> list[int]:
+def permutation_sjt(string) -> list[str]:
 	arr = list(string)
-	arr = [int(x) for x in arr]
+	arr.sort()
 	permutations: list = []
-	x: int = arr[-1] # The last element which will be the one to move around.
-	prev_index = first_permutations(permutations, arr, x)
+	d: int = -1 # Direction of the mobile number. -1 is descending, +1 is ascending
+	arr = make_elems_mobile(arr, d)
+	x = arr[-1] # The largest number which is the main to move. 
 
-	while still_new_permutations(permutations):
-		current_index = arr.index(x)
-		prev_index = swap(permutations, arr, x, prev_index, current_index)
+	permutations.append(add_new_permutation(arr)) # Adds the first permutation (start-list).
+
+	# while(still_new_permutations(permutations) or len(permutations) == 1):
+	for j in range(10):
+		print("-----------------New ROUND-----------------")
+		for i in range(len(arr)):
+			num = arr[len(arr) - 1 - i] # To get the reversed list -> Begin at the highest number.
+			print(f"Element: {num} in start array: {arr}")
+			while(is_mobile(arr, num, d)):
+				print(f"Element: {num} in array: {arr}")
+				new_permutation(permutations, arr)
 	return permutations
 
-def first_permutations(permutations: list, arr: list, x: int):
-	permutations.append(new_permutation(arr))
-	prev_index: int = arr.index(x)
-	arr[-1], arr[-2] = arr[-2], arr[-1]
-	permutations.append(new_permutation(arr))
-	return prev_index
 
-def still_new_permutations(permutations: list):
+def make_elems_mobile(arr: list[list], d):
+	"""
+	Returns list with elem and it's mobile direction, which is descending by default.
+	"""
+	arr_d = [] # List with direction.
+	for elem in arr:
+		arr_d.append([elem, d]) 
+	return arr_d
+
+
+def still_new_permutations(permutations: list) -> bool:
 	return not permutations[-1] == permutations[0]
 
-def swap(permutations: list, arr: list, x: int, prev_index: int, current_index: int):
-	print(current_index, prev_index, end="")
-	print(" -- ", end="")
-	print(arr[0], arr[-1])
-	if not (arr[0] == x or arr[-1] == x):
-		if prev_index > current_index:
-			arr[current_index], arr[current_index-1] = arr[current_index-1], arr[current_index]
-			prev_index -= 1
-		elif prev_index < current_index:
-			arr[current_index], arr[current_index+1] = arr[current_index+1], arr[current_index]
-			prev_index += 1
-		else:
-			print("Something went wrong")
-			print(permutations)
-			exit(0)
-	else:
-		if prev_index > current_index:
-			print(arr[-2], arr[-1])
-			arr[-1], arr[-2] = arr[-2], arr[-1]
-			prev_index = -1 # restart to go up
-		elif prev_index < current_index:
-			arr[0], arr[1] = arr[1], arr[0]
-			prev_index = len(arr) # restart to go down
-		else:
-			print("Something went wrong (2)")
-			print(permutations)
-			exit(0)
-	permutations.append(new_permutation(arr))
-	return prev_index
 
-def new_permutation(arr: list):
+def new_permutation(permutations: list, arr: list):
+	"""
+	Appends a new permutation to the list.
+	"""
+	permutations.append(add_new_permutation(arr))
+
+
+def swap(arr: list[list], val1: int, val2: int):
+	"""
+	Swaps 2 lists with each other.
+	"""
+	arr[val1], arr[val2] = arr[val2], arr[val1]
+
+
+def is_mobile(arr: list[list], num: list, direction: int):
+	"""
+	Checks if the current number can switch place with the adjacent number in it's direction. 
+	"""
+	current_pos: int = arr.index(num)
+	adjacent_num: list = arr[current_pos + direction]
+	has_swapped: bool = False
+
+	has_swapped = can_swap_with_adjacent(arr, num, adjacent_num, current_pos)
+	stop_and_swap(arr, num, adjacent_num, current_pos)
+	print(f"has_swapped is {has_swapped}")
+	return has_swapped
+
+
+def can_swap_with_adjacent(arr: list[list], num: list, adj: list, num_to_swap: int):
+	direction: int = num[1]
+	current_pos: int = arr.index(num)
+	arr_length = len(arr) - 1
+	print(f"Current: {num[0]}, Adjacent: {adj[0]}, Pos: {current_pos}")
+	if num[0] > adj[0] and current_pos - arr.index(adj) == 1:
+		swap(arr, num_to_swap, num_to_swap + direction) # Swaps the number with the number in its direction.
+		return True
+	elif num[0] < adj[0] and current_pos - arr.index(adj) == -1:
+		swap(arr, num_to_swap, num_to_swap + direction) # Swaps the number with the number in its direction.
+		return True
+	else:
+		print("Can't swap!")
+		return False # Does not append the current arr to permutations because no change was made. 
+
+
+def stop_and_swap(arr: list[list], num: list, adj: list, current_pos: int):
+	"""
+	Checks if the currently moving number has to stop and change direction.
+	"""
+	if current_pos == 0:
+		set_direction(arr, current_pos, 1)
+	elif current_pos == len(arr) - 1:
+		set_direction(arr, current_pos, -1)
+	elif num[0] < adj[0] and num[1] == -1:
+		reverse_direction(arr, current_pos)
+	elif num[0] > adj[0] and num[1] == 1:
+		reverse_direction(arr, current_pos)
+
+
+def reverse_direction(arr: list[list], current_pos: int):
+	arr[current_pos][1] *= -1 # Swaps direction
+
+
+def set_direction(arr: list[list], current_pos: int, direction: int):
+	arr[current_pos][1] = direction
+
+
+def add_new_permutation(arr_d: list) -> list:
 	temp = []
-	for elem in arr:
-		temp.append(elem)
+	for elem in arr_d:
+		temp.append(elem[0]) # Adds the number to a list and ignores the direction.
 	return temp
+
 
 if __name__ == "__main__":
 	sjt_program()
