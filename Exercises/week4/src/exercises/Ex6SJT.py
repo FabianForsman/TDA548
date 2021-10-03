@@ -28,22 +28,34 @@ def sjt_program():
 def permutation_sjt(string) -> list[str]:
 	arr = list(string)
 	arr.sort()
-	permutations: list = []
+	permutations: list = [list]
 	d: int = -1 # Direction of the mobile number. -1 is descending, +1 is ascending
 	arr = make_elems_mobile(arr, d)
-	x = arr[-1] # The largest number which is the main to move. 
+	x = arr[-1][0] # The largest number which is the main to move. 
+	y = arr[0][0] # The lowest number whish is the last to move.
 
 	permutations.append(add_new_permutation(arr)) # Adds the first permutation (start-list).
 
+	numbers: str = []
+	for elem in arr:
+		numbers.append(int(elem[0]))
+	print(numbers)
 	# while(still_new_permutations(permutations) or len(permutations) == 1):
 	for j in range(10):
 		print("-----------------New ROUND-----------------")
-		for i in range(len(arr)):
-			num = arr[len(arr) - 1 - i] # To get the reversed list -> Begin at the highest number.
+		for i in reversed(numbers):
+			print(arr)
+			for x in arr:
+				print(x)
+				if x[0] == i:
+					num = x
+			# num = arr[i - 1]
 			print(f"Element: {num} in start array: {arr}")
 			while(is_mobile(arr, num, d)):
 				print(f"Element: {num} in array: {arr}")
 				new_permutation(permutations, arr)
+			if not i == numbers[-1]:
+				break
 	return permutations
 
 
