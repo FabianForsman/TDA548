@@ -28,7 +28,7 @@ def sjt_program():
 def permutation_sjt(string) -> list[str]:
 	arr = list(string)
 	arr.sort()
-	permutations: list = [list]
+	permutations: list = []
 	d: int = -1 # Direction of the mobile number. -1 is descending, +1 is ascending
 	arr = make_elems_mobile(arr, d)
 	x = arr[-1][0] # The largest number which is the main to move. 
@@ -38,24 +38,24 @@ def permutation_sjt(string) -> list[str]:
 
 	numbers: str = []
 	for elem in arr:
-		numbers.append(int(elem[0]))
-	print(numbers)
+		numbers.append(elem[0])
 	# while(still_new_permutations(permutations) or len(permutations) == 1):
 	for j in range(10):
 		print("-----------------New ROUND-----------------")
 		for i in reversed(numbers):
-			print(arr)
-			for x in arr:
-				print(x)
-				if x[0] == i:
-					num = x
-			# num = arr[i - 1]
+			for current_num in arr:
+				if current_num[0] == i:
+					num = current_num
 			print(f"Element: {num} in start array: {arr}")
-			while(is_mobile(arr, num, d)):
-				print(f"Element: {num} in array: {arr}")
-				new_permutation(permutations, arr)
+			is_mobile(arr, num, x)
+			# print(f"Element: {num} in array: {arr}")
+			new_permutation(permutations, arr)
 			if not i == numbers[-1]:
 				break
+			else:
+				while(is_mobile(arr, num, x)):
+					new_permutation(permutations, arr)
+					continue
 	return permutations
 
 
@@ -87,16 +87,20 @@ def swap(arr: list[list], val1: int, val2: int):
 	arr[val1], arr[val2] = arr[val2], arr[val1]
 
 
-def is_mobile(arr: list[list], num: list, direction: int):
+def is_mobile(arr: list[list], num: list, x: int):
 	"""
 	Checks if the current number can switch place with the adjacent number in it's direction. 
 	"""
+	direction = num[1]
 	current_pos: int = arr.index(num)
-	adjacent_num: list = arr[current_pos + direction]
+	try:
+		adjacent_num: list = arr[current_pos + direction]
+	except:
+		adjacent_num: list = arr[0]
 	has_swapped: bool = False
 
 	has_swapped = can_swap_with_adjacent(arr, num, adjacent_num, current_pos)
-	stop_and_swap(arr, num, adjacent_num, current_pos)
+	stop_and_swap(arr, num, adjacent_num, current_pos, direction, x)
 	print(f"has_swapped is {has_swapped}")
 	return has_swapped
 
@@ -104,32 +108,35 @@ def is_mobile(arr: list[list], num: list, direction: int):
 def can_swap_with_adjacent(arr: list[list], num: list, adj: list, num_to_swap: int):
 	direction: int = num[1]
 	current_pos: int = arr.index(num)
-	arr_length = len(arr) - 1
 	print(f"Current: {num[0]}, Adjacent: {adj[0]}, Pos: {current_pos}")
-	if num[0] > adj[0] and current_pos - arr.index(adj) == 1:
-		swap(arr, num_to_swap, num_to_swap + direction) # Swaps the number with the number in its direction.
-		return True
-	elif num[0] < adj[0] and current_pos - arr.index(adj) == -1:
+
+	if num[0] > adj[0] and within_bounds(arr, num, direction):
 		swap(arr, num_to_swap, num_to_swap + direction) # Swaps the number with the number in its direction.
 		return True
 	else:
 		print("Can't swap!")
 		return False # Does not append the current arr to permutations because no change was made. 
 
+def within_bounds(arr: list[list], num: list, direction: int):
+	"""
+	Checks if the current number is at the edge of the list. If so, it has to stop.
+	"""
+	if arr.index(num) == len(arr) - 1 and direction == 1 or arr.index(num) == 0 and direction == -1:
+		return False
+	return True
 
-def stop_and_swap(arr: list[list], num: list, adj: list, current_pos: int):
+def stop_and_swap(arr: list[list], num: list, adj: list, current_pos: int, direction: int, x: int):
 	"""
 	Checks if the currently moving number has to stop and change direction.
 	"""
-	if current_pos == 0:
-		set_direction(arr, current_pos, 1)
-	elif current_pos == len(arr) - 1:
-		set_direction(arr, current_pos, -1)
-	elif num[0] < adj[0] and num[1] == -1:
+	if current_pos == 0 and num[0] > adj[0] and direction == -1:
 		reverse_direction(arr, current_pos)
-	elif num[0] > adj[0] and num[1] == 1:
+	elif current_pos == len(arr) - 1 and num[0] < adj[0] and direction == 1:
 		reverse_direction(arr, current_pos)
-
+	elif (current_pos == 0 or current_pos == len(arr) - 1) and num[0] == x:
+		reverse_direction(arr, current_pos)
+	else:
+		print("Stopped but did not reverse direction!")
 
 def reverse_direction(arr: list[list], current_pos: int):
 	arr[current_pos][1] *= -1 # Swaps direction
