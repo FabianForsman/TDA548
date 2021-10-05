@@ -1,0 +1,89 @@
+
+**** Exercises week 5 ***
+
+Exercises
+---------
+
+1.  See ex1useaclass directory. Implement the class Rational so that all tests
+    in Ex1TestRational pass.
+
+    TIP: Always store rationals in shortest form,
+    https://en.wikipedia.org/wiki/Euclidean_algorithm
+
+2.  See ex2usemoreclasses. Implement classes Point and Triangle so that all test
+    in Ex2TestPointTriangle passes. Triangle should use Point and should use Heron's
+    formula to calculate the area, See https://en.wikipedia.org/wiki/Heron%27s_formula
+
+3.  See Ex3Theory. Uncomment and answer questions. Write answer here:
+    1.
+    2.
+    3.
+    4.
+    5.
+
+
+4.  See directory ex4hangman. Implement a text based object-oriented version of the Hangman game
+    See: https://en.wikipedia.org/wiki/Hangman_(game).
+
+    - All classes needed are there.
+    - Break down and decide which data and which methods should go in which classes.
+    - The top-level class, with the game loop, is CLI (also contains all IO)
+    - Let CLI do calls on the HangMan class (only) to do the work. Hangman will in
+      turn delegate to other objects to fulfill their part of the work.
+    - Make a sketch, discuss with assistants
+
+    A run of the game outputs:
+
+    Welcome to HangMan, try to guess the word! It's 7 characters long
+    Enter a character > i
+
+    i _ _ _ _ _ _
+    Enter a character > x
+    ---|
+
+    i _ _ _ _ _ _
+    Enter a character > n
+    ---|
+
+    i n _ _ _ n _
+    Enter a character > x
+    ---|
+       |
+
+    i n _ _ _ n _
+    Enter a character > x
+    ---|
+       |
+       O
+
+    ... (etc)
+
+    i n _ _ _ n _
+    Enter a character > x
+    ---|
+       |
+       O
+      /|\
+      /
+    i n _ _ _ n _
+    Enter a character > x
+    ---|
+       |
+       O
+      /|\
+      / \
+
+    i n _ _ _ n _
+    Sorry you lost. Word was: instans
+
+    (if win: Congratulations, you made it! Word was ..)
+
+
+5.  See Ex5SplitList. Implement a method to partition a list into sub-lists.
+
+6.  See Ex6Grouping. Group a list of Positions (row, col) into sub-lists in which all
+    positions have the same row. You should use a dictionary.
+
+7.  See Ex7NetworkGame. For more challenge. Implement a two-player (or more) game,
+    for instance Rock-Paper-Scissors, that uses a server and a client to let two
+    players face each other.
