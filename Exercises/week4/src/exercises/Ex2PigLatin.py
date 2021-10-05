@@ -11,7 +11,6 @@ def pig_latin_program():
 
 
 # ---------- Methods --------------------
-# TODO
 def to_pig_latin(str_to_translate) -> str:
     consonants_upper = "B C D F G J K L M N P Q S T V X Z H R W Y"
     consonants = consonants_upper + " " + consonants_upper.lower()

@@ -40,7 +40,6 @@ def read_number_program():
 # ----------- Methods-----------------------------------
 # First parameter is a list in which
 def read_number(string_to_parse: str, start_index: int) -> tuple:
-	# TODO
 	numbers = "0123456789"
 	return_num = ""
 	stop_index = 0
