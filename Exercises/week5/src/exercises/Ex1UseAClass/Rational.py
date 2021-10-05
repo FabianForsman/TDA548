@@ -29,12 +29,24 @@ class Rational:
         return self.denom 
 
     def check_fracture_reduction(self, num: int, denom: int):
-        print(num, denom)
         if denom == None:
             denom = 1
-        for i in range(2, int(sqrt(num)) + 1):
-            print(i)
-            if num % i == denom % i:
-                num = num/i
-                denom = denom/i
+        greatest = self.gcd(num, denom)
+        num /= greatest
+        denom /= greatest
         return num, denom
+
+    def gcd(self, num: int, denom: int) -> int:
+        while not denom == 0:
+            temp = denom
+            denom = num%denom
+            num = temp
+        return num
+
+    def __add__(self, other):
+        return (self.num / self.denom) + (other.get_num() / self.get_denom())
+
+    def __sub__(self, other):
+        return (self.num / self.denom)-+ (other.get_num() / self.get_denom())
+    def __eq__(self, o: object) -> bool:
+        pass
