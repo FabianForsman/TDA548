@@ -14,9 +14,6 @@ class Rational:
     # TODO implement class
 
     def __init__(self, *args):
-        print(args)
-        print(args[0])
-        print(len(args))
         num = args[0]
         if len(args) == 1:
             denom = 1
@@ -35,7 +32,8 @@ class Rational:
         print(num, denom)
         if denom == None:
             denom = 1
-        for i in range(2, round(sqrt(num))):
+        for i in range(2, int(sqrt(num)) + 1):
+            print(i)
             if num % i == denom % i:
                 num = num/i
                 denom = denom/i
