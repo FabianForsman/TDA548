@@ -30,7 +30,6 @@ def test_rational():
     print(r1 - r2 == Rational(-1, 4)) # Requires overriding __sub__
     print(r1 * r2 == Rational(1, 8))  # Requires overriding __mul__
     print(r1 / r2 == Rational(1, 2))  # Requires overriding __div__
-
     r3 = Rational(r1)
     print(r3 == r1)                         # Requires overriding __eq__
     print(not r3 < r1)                      # Requires overriding __lt__
