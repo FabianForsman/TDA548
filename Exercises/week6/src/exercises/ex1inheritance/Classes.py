@@ -16,16 +16,21 @@ class Person:
 
 
 class Vehicle(ABC):
-    pass
-    # TODO
+    def __init__(self, person: Person, id: str, max: int, word: str):
+        self.id = id
+        self.word = word 
+        self.max = float(max)
+        self.person = person
+
+    def __str__(self):
+        return (type(self).__name__ + "{" + self.word + "=" + str(self.max) 
+                + ", {owner=" + self.person.__str__() + ", id='" + self.id + "'}}")
+
+class Car(Vehicle):
+    def __init__(self, person: Person, id: str, max: int):
+        super().__init__(person, id, max, "topSpeed")
 
 
-class Car:
-    pass
-    # TODO
-
-
-class Van:
-    pass
-    # TODO
-
+class Van(Vehicle):
+    def __init__(self, person: Person, id: str, max: int):
+        super().__init__(person, id, max, "maxCargo")

@@ -12,6 +12,10 @@ from Classes import *
 # Car{topSpeed=210.0, {owner=Person{id='456', name='fia'}, id='ghi'}}
 # Van{maxCargo=800.0, {owner=Person{id='123', name='olle'}, id='jkl'}}
 # 
+# Car{topSpeed=160.0, {owner=Person{id='123', name='olle'}, id='abc'}}
+# Van{maxCargo=400.0, {owner=Person{id='456', name='fia'}, id='def'}}
+# Car{topSpeed=210.0, {owner=Person{id='456', name='fia'}, id='ghi'}}
+# Van{maxCargo=800.0, {owner=Person{id='123', name='olle'}, id='jkl'}}
 # See:
 # - inheritance/
 def test_car_van_program():
@@ -26,3 +30,6 @@ def test_car_van_program():
 
     for v in vehicles:
         print(v)  # Each vehicle should know what to print!
+
+if __name__ == "__main__":
+    test_car_van_program()
