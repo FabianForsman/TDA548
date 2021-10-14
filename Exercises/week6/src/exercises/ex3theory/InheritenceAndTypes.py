@@ -10,28 +10,28 @@ from abc import ABC
 # Uncomment each row in turn and explain why the row gives a warning or not.
 def test_subtypes_program():
     ia: IA = A()
-    # ia = B()
-    # ia = C()
-    # ia = D()
-    # ia = E()
+    ia = B()
+    ia = C()
+    ia = D()
+    ia = E()
 
     a: A = A()
-    # a = B()
-    # a = C()
-    # a = D()
-    # a = E()
+    a = B()
+    a = C()
+    a = D()
+    a = E()
 
     b: B = B()
-    # b = A()
-    # b = C()
+    b = A()
+    b = C()
     c: C = C()
-    # c = D()
-    # c = E()
+    c = D()
+    c = E()
     d: D = D()
-    # d = E()
+    d = E()
     e: E = E()
-    # e = C()
-    # e = D()
+    e = C()
+    e = D()
 
 
 # -------------  Interfaces and classes ----------------------
