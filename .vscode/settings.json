@@ -1,5 +1,0 @@
-{
-    "python.analysis.extraPaths": [
-        "./Exercises/week4/src/samples"
-    ]
-}
