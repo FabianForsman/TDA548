@@ -17,13 +17,15 @@ Förklara med egna ord: Vad är skillnaden mellan en for- och while-loop?
 Ge också exempel eller generell tumregel för när de olika kan användas.
 
 Svar:
-for-loopen körs ett specifierat antal gånger och används när man vet hur många gånger man vill utföra koden.
-Den räknar igenom en lista vars element används (ofta, men inte alltid) till att göra något i koden.
+for-loopen körs ett specifierat antal gånger och används när man vet hur många gånger
+man vill utföra koden.
+Den räknar igenom en lista vars element används (ofta, men inte alltid) till att göra 
+något i koden.
 while-loopen används när vi inte vet hur många gånger som koden ska exekveras.
 Den koller om ett statement är sant eller falsk, och utför koden enligt detta.
 
 for elem in my_list:
-    do_something()
+    do_something(elem)
 
 run = True
 while run:
@@ -120,14 +122,20 @@ Presentera ditt svar som ett flödesschema, eller som pseudo-kod ("kodskiss"),
 eller som faktisk kod i valfritt (känt) programmeringsspråk.
 
 Svar:
+"""
 def as_set(in_list: list) -> list:
     temp_list: list = []
     for elem in in_list:
         if elem not in temp_list:
             temp_list.append(elem)
-    temp_list.sort()
     return temp_list
-"""
+
+def uppgiftA4():
+    print(as_set([1,1,2,2,3,3,3,3,3,4,7,7,1,3,3,5,1,1,4,6]))
+
+print("Uppgift A4:")
+uppgiftA4()
+print()
 
 
 """ Uppgift A5: 4p
@@ -135,36 +143,47 @@ Förklara begreppet funktionell nedbrytning. Beskriv varför och när vi vill g�
 funktionell nedbrytning, och vad vi vill uppnå. Ge ett konkret exempel.
 
 Svar:
-Funktionell nedbrytning innefattar att bryta upp koden till flera funktioner, istället för att ha allt i samma funktion, main etc.
-Detta gör vi för att göra koden mycket mer läsbar och för att andra ska kunna använda våra funktioner.
-Om det finns mycket kod som blir grötig kan det bli mycket bättre om den bryts ner till mindre delar. 
-Det blir också bättre vid testning av koden, då specifika funktioner för specifika delar kan köras med
-testkod för att se om helheten fungerar.
+Funktionell nedbrytning innefattar att bryta upp koden till flera funktioner, istället 
+för att ha allt i samma funktion, main etc.
+Detta gör vi för att göra koden mycket mer läsbar och för att andra ska kunna använda 
+våra funktioner.
+Om det finns mycket kod som blir grötig kan det bli mycket bättre om den bryts ner till 
+mindre delar. 
+Det blir också bättre vid testning av koden, då specifika funktioner för specifika 
+delar kan köras med testkod för att se om helheten fungerar.
 
-Det är dock viktigt att vi fortfarande följer command query principle, d.v.s. att funktionen antingen fungerar som ett kommando,
-alltså att den har en effekt eller att den ska kunna bli "frågan en fråga" och åstadkomma ett resultat, d.v.s. returnera ett värde.
+Det är dock viktigt att vi fortfarande följer command query principle, d.v.s. att 
+funktionen antingen fungerar som ett kommando,
+alltså att den har en effekt eller att den ska kunna bli "frågan en fråga" 
+och åstadkomma ett resultat, d.v.s. returnera ett värde.
 Att ställa en fråga ska inte påverka svaret!
 
-Ett konkret exempel är just felhantering. Istället för att ha all felhantering ett och samma block delar vi upp
-varje fel med en funktion, vilket gör det mycket mer läsbart och det blir lättare att se vad som blir fel.
+Ett konkret exempel är just felhantering. Istället för att ha all felhantering ett 
+och samma block delar vi upp varje fel med en funktion, 
+vilket gör det mycket mer läsbart och det blir lättare att se vad som blir fel.
 
 """
 
 
 """ Uppgift A6: 5p
 Förklara begreppet gränssnitt, och hur vi bör förhålla oss till dessa.
-Gränssnitt är det som är synligt till anroparen, d.v.s. det vi vill visa. Detta inkulderar publika metoder, attribut och docstrings etc.
-När användaren skriver ex. en instans från en klass:s namn med punkt-operatorn efter kommer funktion, metod och attributs- gränsnittet upp.
+
+Svar: 
+Gränssnitt är det som är synligt till anroparen, d.v.s. det vi vill visa. 
+Detta inkulderar publika metoder, attribut och docstrings etc.
+När användaren skriver ex. en instans från en klass:s namn med punkt-operatorn 
+efter kommer funktion, metod och attributs- gränsnittet upp.
 Detta används för att visa vad användaren kan göra med klassen.
 
-Svar:
-Vid användandet av funktioner är docstrings bra, eftersom det är en beskrivning av vad funktionen ska göra. 
+Vid användandet av funktioner är docstrings bra, eftersom det är en beskrivning 
+av vad funktionen ska göra. 
 skrivs mha 
 """
 """
 
-Vi bör vara tydliga i gränssnittet med vad koden ska åstadkomma så att det blir så lätt för användaren som möjligt. Det ska vara
-tydligt vad en funktion ska göra, d.v.s. vi ska utnyttja principle of least astonishment. 
+Vi bör vara tydliga i gränssnittet med vad koden ska åstadkomma så att det blir så 
+lätt för användaren som möjligt. Det ska vara tydligt vad en funktion ska göra, 
+d.v.s. vi ska utnyttja principle of least astonishment. 
 """
 
 
@@ -172,13 +191,16 @@ tydligt vad en funktion ska göra, d.v.s. vi ska utnyttja principle of least ast
 Förklara begreppen supertyp och subtyp, och hur de påverkar varandra.
 
 Svar:
-supertyp och subtyp handlar om arv. En subtyp ärver av sin supertyp, vilket gäller generellt. Ett exempel är vid
-superklasser och subklasser.
+supertyp och subtyp handlar om arv. En subtyp ärver av sin supertyp, 
+vilket gäller generellt. Ett exempel är vid superklasser och subklasser.
 
-Att ha en superklass Pet är bra då alla husdjur, oavsätt vilket djur, har många gemensamma attribut och kan göra samma saker.
-Antag att det finns en subklass Dog och Cat. Dessa kanske båda har ett namn och en ålder. Därav skapar vi detta i superklassen som de båda ärver av
-eftersom det blir mer överskådlig och lättläst kod samt färre rader. Om något ändras i supertypen ändras det också i subtyperna, men inte tvärt om.
-supertypen ärver inte av subtypen.
+Att ha en superklass Pet är bra då alla husdjur, oavsätt vilket djur, 
+har många gemensamma attribut och kan göra samma saker.
+Antag att det finns en subklass Dog och Cat. Dessa kanske båda har ett namn och en ålder. 
+Därav skapar vi detta i superklassen som de båda ärver av eftersom det blir 
+mer överskådlig och lättläst kod samt färre rader. 
+Om något ändras i supertypen ändras det också i subtyperna, men inte tvärt om.
+Supertypen ärver inte av subtypen.
 """
 
 # Max poäng del A: 32p
@@ -260,11 +282,18 @@ Förklara vad som menas med att listor har referens-semantik, medan tupler har
 värde-semantik.
 
 Svar:
-referens-semantik, d.v.s. att elementet har en adress som pekar på heap:en där des värde ligger.
-Listor är av godtycklig storlek, d.v.s. deras storlek går att ändra på efter initering (med append, pop etc.) Deras storlek går att ändra på efter initering.
+referens-semantik, d.v.s. att elementet har en adress som pekar på heap:en där des
+värde ligger.
+Listor är av godtycklig storlek, d.v.s. deras storlek går att ändra på efter initering 
+(med append, pop etc.) Deras storlek går att ändra på efter initering.
+Listor är muterbara objekt. När listan förändras kommer alla element som har
+en referens (alias) till list-objektet också ändras. 
 
-Tupler å andra sidan är som en lista där elementen är omuterbara och detta är även dess storlek. Varje element i tuple:n har ett värde,
-och detta går inte att ändra på. Det går inte att append:a till en tuple etc. Det som ligger i varje plats är ett värde, inte en referens till ett värde som det är i listor.
+Tupler å andra sidan är som en lista där elementen är omuterbara och detta är 
+även dess storlek. Varje element i tuple:n har ett värde,
+och detta går inte att ändra på. Det går inte att append:a till en tuple etc. 
+Det som ligger i varje plats är ett värde, 
+inte en referens till ett värde som det är i listor.
 """
 
 
